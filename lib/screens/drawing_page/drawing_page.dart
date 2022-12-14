@@ -2,8 +2,6 @@ import 'package:drawing3/models/DotInfo.dart';
 import 'package:drawing3/screens/drawing_page/local_utils/DrawingProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:drawing3/svg/svg_page.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class DrawingPage extends StatefulWidget {
   @override
@@ -23,70 +21,133 @@ class _DrawingPageState extends State<DrawingPage> {
       body: Container(
         width: 1366,
         height: 1024,
-        color: Color(0xFF0C092C),
+        color: Color(0xFF0C092C), //#F4F8FE
         child: Column(
           children: [
-            Container(
-              width: 647,
-              height: 83,
-              //color: Color(0xFF15264a),
-              decoration: const BoxDecoration(
-                color: Color(0xFF15264a),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(35),
-                    bottomRight: Radius.circular(35)),
-              ),
-              padding:
-                  EdgeInsets.only(top: MediaQuery.of(context).padding.bottom),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 16, bottom: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _brush(p),
-                        _crayon(p),
-                        _eraser(p),
-                        IconButton(
-                          icon: Icon(Icons.format_shapes, size: 34),
-                          color: _color,
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.image_outlined, size: 34),
-                          color: _color,
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.circle_outlined, size: 34),
-                          color: _color,
-                          onPressed: () {},
-                        ),
-                        Container(
-                          width: 116,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 5, right: 5),
-                            child: Slider(
-                                activeColor: Colors.white,
-                                inactiveColor: Colors.white,
-                                value: p.size,
-                                onChanged: (size) {
-                                  p.changeSize = size;
-                                },
-                                min: 3,
-                                max: 15),
-                          ),
-                        ),
-                        _colorWidget(Color(0xFF004eff)),
-                        _colorWidget(Color(0xFFa7beff)),
-                        _colorWidget(Colors.black),
-                      ],
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 647,
+                  height: 83,
+                  //color: Color(0xFF15264a),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF15264a),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.16),
+                        //spreadRadius: 3,
+                        blurRadius: 6,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(35),
+                        bottomRight: Radius.circular(35)),
                   ),
-                ],
-              ),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).padding.bottom),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 16, bottom: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _brush(p),
+                            _crayon(p),
+                            _eraser(p),
+                            IconButton(
+                              icon: Icon(Icons.format_shapes, size: 34),
+                              color: _color,
+                              onPressed: () {},
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.image_outlined, size: 34),
+                              color: _color,
+                              onPressed: () {},
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.circle_outlined, size: 34),
+                              color: _color,
+                              onPressed: () {},
+                            ),
+                            Container(
+                              width: 116,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 5, right: 5),
+                                child: Slider(
+                                    activeColor: Colors.white,
+                                    inactiveColor: Colors.white,
+                                    value: p.size,
+                                    onChanged: (size) {
+                                      p.changeSize = size;
+                                    },
+                                    min: 3,
+                                    max: 15),
+                              ),
+                            ),
+                            _colorWidget(Color(0xFF004eff)),
+                            _colorWidget(Color(0xFFa7beff)),
+                            _colorWidget(Colors.black),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      height: 33,
+                      width: 150,
+                    ),
+                    Container(
+                      width: 65,
+                      height: 65,
+                      margin: EdgeInsets.only(right: 48, left: 37, top: 0),
+                      padding: EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(37)),
+                        gradient: RadialGradient(
+                          colors: [
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Color(0xFFf7f7fa),
+                            Color(0xFFf7f7fa),
+                            Color(0xFFf7f7fa),
+                            Color(0xFFd1d3e1),
+                            Color.fromARGB(255, 173, 176, 201),
+                            Color.fromARGB(255, 131, 133, 154),
+                          ],
+                        ),
+                      ),
+                      child: GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {},
+                          child: Center(
+                            child: Image(
+                              image: AssetImage('assets/icons/user.png'),
+                              height: 40,
+                              width: 40,
+                            ),
+                          )),
+                    ),
+                  ],
+                )
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -99,10 +160,12 @@ class _DrawingPageState extends State<DrawingPage> {
                         color: Colors.transparent,
                         image: DecorationImage(
                             image: AssetImage(
-                              'assets/pages/2.png',
+                              'assets/pages/iru$_pages.png',
                             ),
                             fit: BoxFit.cover)),
-                    margin: EdgeInsets.fromLTRB(0, 68, 0, 0),
+                    margin: EdgeInsets.only(
+                      top: 53,
+                    ),
                     child: Stack(children: [
                       Positioned.fill(
                         child: CustomPaint(
@@ -136,9 +199,17 @@ class _DrawingPageState extends State<DrawingPage> {
                     right: 34,
                     bottom: 13,
                   ),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(53)),
+                    borderRadius: BorderRadius.all(Radius.circular(37)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.13),
+                        // spreadRadius: 3,
+                        blurRadius: 15,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ],
                   ),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,6 +334,7 @@ class _DrawingPageState extends State<DrawingPage> {
                     onTap: () {
                       setState(() {
                         _pages += 1;
+                        _pages < 6 ? null : _pages = 5;
                       });
                     },
                     child: Icon(Icons.arrow_forward_ios_rounded,

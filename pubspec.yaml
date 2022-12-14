@@ -31,13 +31,13 @@ dependencies:
   flutter:
     sdk: flutter
   crayola: ^2.1.1
-  postgresql2: ^1.0.3
+  # postgresql2: ^1.0.3
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  flutter_svg: ^1.1.6
+  # cupertino_icons: ^1.0.2
+  # flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -73,11 +73,7 @@ flutter:
     - assets/pages/iru2.png
     - assets/pages/iru3.png
     - assets/pages/iru4.png
-    - assets/pages/iru5.png
-    - assets/pages/iru6.png
-    - assets/pages/iru7.png
-    - assets/pages/cover.png
-    - assets/pages/2.png
+    - assets/icons/user.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
