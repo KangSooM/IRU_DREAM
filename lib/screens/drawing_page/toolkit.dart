@@ -10,7 +10,6 @@ class ToolKit extends StatelessWidget {
     var p = Provider.of<DrawingProvider>(context);
     return Container(
       width: 647,
-      height: 83,
       //color: Color(0xFF15264a),
       decoration: BoxDecoration(
         color: const Color(0xFF15264a),
@@ -22,58 +21,52 @@ class ToolKit extends StatelessWidget {
             offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35)),
+        borderRadius: const BorderRadius.all(Radius.circular(35)),
       ),
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.bottom),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(top: 16, bottom: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _brush(p),
-                _crayon(p),
-                _eraser(p),
-                IconButton(
-                  icon: const Icon(Icons.format_shapes, size: 34),
-                  color: Colors.white,
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(Icons.image_outlined, size: 34),
-                  color: Colors.white,
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(Icons.circle_outlined, size: 34),
-                  color: Colors.white,
-                  onPressed: () {},
-                ),
-                SizedBox(
-                  width: 116,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 5),
-                    child: Slider(
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        value: p.size,
-                        onChanged: (size) {
-                          p.changeSize = size;
-                        },
-                        min: 3,
-                        max: 15),
-                  ),
-                ),
-                _colorWidget(const Color(0xFF004eff), context),
-                _colorWidget(const Color(0xFFa7beff), context),
-                _colorWidget(Colors.black, context),
-              ],
+      margin: EdgeInsets.only(top: MediaQuery.of(context).padding.bottom),
+      child: Container(
+        padding: const EdgeInsets.only(top: 16, bottom: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _brush(p),
+            _crayon(p),
+            _eraser(p),
+            IconButton(
+              icon: const Icon(Icons.format_shapes, size: 34),
+              color: Colors.white,
+              onPressed: () {},
             ),
-          ),
-        ],
+            IconButton(
+              icon: const Icon(Icons.image_outlined, size: 34),
+              color: Colors.white,
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.circle_outlined, size: 34),
+              color: Colors.white,
+              onPressed: () {},
+            ),
+            SizedBox(
+              width: 116,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: Slider(
+                    activeColor: Colors.white,
+                    inactiveColor: Colors.white,
+                    value: p.size,
+                    onChanged: (size) {
+                      p.changeSize = size;
+                    },
+                    min: 3,
+                    max: 15),
+              ),
+            ),
+            _colorWidget(const Color(0xFF004eff), context),
+            _colorWidget(const Color(0xFFa7beff), context),
+            _colorWidget(Colors.black, context),
+          ],
+        ),
       ),
     );
   }
@@ -84,8 +77,7 @@ class ToolKit extends StatelessWidget {
       onTap: () {
         p.changeEraseMode();
       },
-      child: Icon(Icons.rectangle_outlined,
-          color: p.eraseMode ? p.color : Colors.white),
+      child: Icon(Icons.rectangle_outlined, color: p.eraseMode ? p.color : Colors.white),
     );
   }
 
@@ -127,12 +119,7 @@ class ToolKit extends StatelessWidget {
       child: Container(
         width: 25,
         height: 25,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: p.color == color
-                ? Border.all(color: Colors.white, width: 2)
-                : null,
-            color: color),
+        decoration: BoxDecoration(shape: BoxShape.circle, border: p.color == color ? Border.all(color: Colors.white, width: 2) : null, color: color),
       ),
     );
   }
