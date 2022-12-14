@@ -124,7 +124,7 @@ class _DrawingPageState extends State<DrawingPage> {
                     width: 17,
                   ),
                   Text(
-                    '$_pages/32',
+                    '$_pages/5',
                     style: const TextStyle(
                       fontFamily: 'Pretendard',
                       fontSize: 25,
