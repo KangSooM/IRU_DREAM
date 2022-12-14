@@ -25,8 +25,6 @@ class _DrawingPageState extends State<DrawingPage> {
     var p = Provider.of<DrawingProvider>(context);
     return Scaffold(
       body: Container(
-        width: 1366,
-        height: 1024,
         color: const Color(0xFF0C092C), //#F4F8FE
         child: Column(
           children: [
@@ -118,8 +116,7 @@ class _DrawingPageState extends State<DrawingPage> {
                         _pages > 0 ? null : _pages = 1;
                       });
                     },
-                    child: const Icon(Icons.arrow_back_ios_new_rounded,
-                        color: Colors.white, size: 30),
+                    child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 30),
                   ),
                   const SizedBox(
                     height: 30,
@@ -145,8 +142,7 @@ class _DrawingPageState extends State<DrawingPage> {
                         _pages < 6 ? null : _pages = 5;
                       });
                     },
-                    child: const Icon(Icons.arrow_forward_ios_rounded,
-                        color: Colors.white, size: 30),
+                    child: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 30),
                   ),
                 ],
               ),
