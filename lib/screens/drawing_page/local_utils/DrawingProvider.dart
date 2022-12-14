@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 //drawing lines, color, size, mode
 class DrawingProvider extends ChangeNotifier {
   final lines = <List<DotInfo>>[];
+  final dots = <List<DotInfo2>>[];
 
   double _size = 3;
   double get size => _size;
@@ -60,8 +61,17 @@ class DrawingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void drawing(Offset offset) {
+  void brushDrawing(Offset offset) {
     lines.last.add(DotInfo(offset, size, color));
+    notifyListeners();
+  }
+
+  void crayonDrawing(Offset offset) {
+    Image.asset(
+      'assets/icons/user.png',
+      alignment: Alignment(offset.dx, offset.dy),
+    );
+    //lines.last.add(DotInfo(offset, size, color.withOpacity(0.0)));
     notifyListeners();
   }
 

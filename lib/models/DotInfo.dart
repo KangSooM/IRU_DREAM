@@ -8,3 +8,10 @@ class DotInfo {
   final double size;
   final Color color;
 }
+
+class DotInfo2 {
+  DotInfo2(this.offset, this.size, this.color);
+  final Offset offset;
+  final double size;
+  final Color color;
+}

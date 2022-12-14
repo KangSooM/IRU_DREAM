@@ -70,8 +70,10 @@ class _DrawingPageState extends State<DrawingPage> {
                         onPanUpdate: (s) {
                           if (p.eraseMode) {
                             p.erase(s.localPosition);
+                          } else if (p.brushMode) {
+                            p.brushDrawing(s.localPosition);
                           } else {
-                            p.drawing(s.localPosition);
+                            p.crayonDrawing(s.localPosition);
                           }
                         },
                         child: Container(),
