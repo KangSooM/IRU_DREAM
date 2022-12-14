@@ -13,16 +13,16 @@ class ToolKit extends StatelessWidget {
       height: 83,
       //color: Color(0xFF15264a),
       decoration: BoxDecoration(
-        color: Color(0xFF15264a),
+        color: const Color(0xFF15264a),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.16),
             //spreadRadius: 3,
             blurRadius: 6,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35)),
       ),
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.bottom),
@@ -30,7 +30,7 @@ class ToolKit extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: EdgeInsets.only(top: 16, bottom: 16),
+            padding: const EdgeInsets.only(top: 16, bottom: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -38,24 +38,24 @@ class ToolKit extends StatelessWidget {
                 _crayon(p),
                 _eraser(p),
                 IconButton(
-                  icon: Icon(Icons.format_shapes, size: 34),
+                  icon: const Icon(Icons.format_shapes, size: 34),
                   color: Colors.white,
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.image_outlined, size: 34),
+                  icon: const Icon(Icons.image_outlined, size: 34),
                   color: Colors.white,
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.circle_outlined, size: 34),
+                  icon: const Icon(Icons.circle_outlined, size: 34),
                   color: Colors.white,
                   onPressed: () {},
                 ),
-                Container(
+                SizedBox(
                   width: 116,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 5, right: 5),
+                    padding: const EdgeInsets.only(left: 5, right: 5),
                     child: Slider(
                         activeColor: Colors.white,
                         inactiveColor: Colors.white,
@@ -67,8 +67,8 @@ class ToolKit extends StatelessWidget {
                         max: 15),
                   ),
                 ),
-                _colorWidget(Color(0xFF004eff), context),
-                _colorWidget(Color(0xFFa7beff), context),
+                _colorWidget(const Color(0xFF004eff), context),
+                _colorWidget(const Color(0xFFa7beff), context),
                 _colorWidget(Colors.black, context),
               ],
             ),

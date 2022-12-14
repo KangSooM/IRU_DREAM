@@ -1,10 +1,16 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables
+
 import 'package:drawing3/models/DotInfo.dart';
 import 'package:drawing3/screens/drawing_page/local_utils/DrawingProvider.dart';
+import 'package:drawing3/screens/drawing_page/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:drawing3/screens/drawing_page/toolkit.dart';
+import 'package:drawing3/screens/drawing_page/profile.dart';
 
 class DrawingPage extends StatefulWidget {
+  const DrawingPage({Key? key}) : super(key: key);
+
   @override
   _DrawingPageState createState() => _DrawingPageState();
 }
@@ -13,7 +19,6 @@ int _pages = 1;
 
 class _DrawingPageState extends State<DrawingPage> {
   bool selected = false;
-  var _color = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -22,65 +27,14 @@ class _DrawingPageState extends State<DrawingPage> {
       body: Container(
         width: 1366,
         height: 1024,
-        color: Color(0xFF0C092C), //#F4F8FE
+        color: const Color(0xFF0C092C), //#F4F8FE
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ToolKit(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      height: 33,
-                      width: 150,
-                    ),
-                    Container(
-                      width: 65,
-                      height: 65,
-                      margin: EdgeInsets.only(right: 48, left: 37, top: 0),
-                      padding: EdgeInsets.all(0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(37)),
-                        gradient: RadialGradient(
-                          colors: [
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Colors.white,
-                            Color(0xFFf7f7fa),
-                            Color(0xFFf7f7fa),
-                            Color(0xFFf7f7fa),
-                            Color(0xFFd1d3e1),
-                            Color.fromARGB(255, 173, 176, 201),
-                            Color.fromARGB(255, 131, 133, 154),
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {},
-                          child: Center(
-                            child: Image(
-                              image: AssetImage('assets/icons/user.png'),
-                              height: 40,
-                              width: 40,
-                            ),
-                          )),
-                    ),
-                  ],
-                )
-              ],
-            ),
+              children: const [ToolKit(), Profile()],
+            ), //toolkit and user_profile
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -95,7 +49,7 @@ class _DrawingPageState extends State<DrawingPage> {
                               'assets/pages/iru$_pages.png',
                             ),
                             fit: BoxFit.cover)),
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       top: 53,
                     ),
                     child: Stack(children: [
@@ -123,87 +77,7 @@ class _DrawingPageState extends State<DrawingPage> {
                         child: Container(),
                       ),
                     ])),
-                Container(
-                  width: 74,
-                  height: 351,
-                  margin: EdgeInsets.only(
-                    left: 39,
-                    right: 34,
-                    bottom: 13,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(37)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.13),
-                        // spreadRadius: 3,
-                        blurRadius: 15,
-                        offset: Offset(0, 0), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            p.changeBrushMode();
-                          },
-                          child: Icon(Icons.home_outlined,
-                              color: Color(0xFF000743), size: 40),
-                        ),
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            p.changeBrushMode();
-                          },
-                          child: Icon(Icons.navigation_outlined,
-                              color: Color(0xFF000743), size: 40),
-                        ),
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            p.changeBrushMode();
-                          },
-                          child: Container(
-                            width: 41.18,
-                            height: 41.18,
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: RadialGradient(
-                                colors: [
-                                  Color(0xFF000D81),
-                                  Color(0xFF01062F),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(20.59),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            p.changeBrushMode();
-                          },
-                          child: Icon(Icons.shopping_bag_outlined,
-                              color: Color(0xFF000743), size: 40),
-                        ),
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            p.changeBrushMode();
-                          },
-                          child: Icon(Icons.circle_outlined,
-                              color: Color(0xFF000743), size: 40),
-                        ),
-                      ]),
-                )
+                const SideBar(),
               ],
             ),
             Padding(
@@ -242,22 +116,22 @@ class _DrawingPageState extends State<DrawingPage> {
                         _pages > 0 ? null : _pages = 1;
                       });
                     },
-                    child: Icon(Icons.arrow_back_ios_new_rounded,
+                    child: const Icon(Icons.arrow_back_ios_new_rounded,
                         color: Colors.white, size: 30),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                     width: 17,
                   ),
                   Text(
                     '$_pages/32',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Pretendard',
                       fontSize: 25,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                     width: 17,
                   ),
@@ -269,7 +143,7 @@ class _DrawingPageState extends State<DrawingPage> {
                         _pages < 6 ? null : _pages = 5;
                       });
                     },
-                    child: Icon(Icons.arrow_forward_ios_rounded,
+                    child: const Icon(Icons.arrow_forward_ios_rounded,
                         color: Colors.white, size: 30),
                   ),
                 ],
@@ -292,7 +166,7 @@ class DrawingPainter extends CustomPainter {
         rect,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color = Color(0xFF0C092C));
+          ..color = const Color(0xFF0C092C));
     canvas.clipRect(rect);
     canvas.save();
     canvas.translate(0.0, 100.0);
@@ -321,6 +195,7 @@ class DrawingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // ignore: todo
     // TODO: implement shouldRepaint
     return true;
   }
