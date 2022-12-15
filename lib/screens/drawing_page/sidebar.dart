@@ -34,25 +34,19 @@ class SideBar extends StatelessWidget {
           children: [
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () {
-                p.changeBrushMode();
-              },
+              onTap: () {},
               child: const Icon(Icons.home_outlined,
                   color: Color(0xFF000743), size: 40),
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () {
-                p.changeBrushMode();
-              },
+              onTap: () {},
               child: const Icon(Icons.navigation_outlined,
                   color: Color(0xFF000743), size: 40),
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () {
-                p.changeBrushMode();
-              },
+              onTap: () {},
               child: Container(
                 width: 41.18,
                 height: 41.18,
@@ -73,17 +67,13 @@ class SideBar extends StatelessWidget {
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () {
-                p.changeBrushMode();
-              },
+              onTap: () {},
               child: const Icon(Icons.shopping_bag_outlined,
                   color: Color(0xFF000743), size: 40),
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () {
-                p.changeBrushMode();
-              },
+              onTap: () {},
               child: const Icon(Icons.circle_outlined,
                   color: Color(0xFF000743), size: 40),
             ),

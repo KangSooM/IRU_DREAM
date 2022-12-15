@@ -7,7 +7,7 @@ class ToolKit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var p = Provider.of<DrawingProvider>(context);
+    var c = Provider.of<ChangePages>(context);
     return Container(
       width: 647,
       //color: Color(0xFF15264a),
@@ -29,9 +29,9 @@ class ToolKit extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _brush(p),
-            _crayon(p),
-            _eraser(p),
+            _brush(c),
+            _crayon(c),
+            _eraser(c),
             IconButton(
               icon: const Icon(Icons.format_shapes, size: 34),
               color: Colors.white,
@@ -54,9 +54,9 @@ class ToolKit extends StatelessWidget {
                 child: Slider(
                     activeColor: Colors.white,
                     inactiveColor: Colors.white,
-                    value: p.size,
+                    value: c.size,
                     onChanged: (size) {
-                      p.changeSize = size;
+                      c.changeSize = size;
                     },
                     min: 3,
                     max: 15),
@@ -71,58 +71,64 @@ class ToolKit extends StatelessWidget {
     );
   }
 
-  GestureDetector _eraser(DrawingProvider p) {
+  GestureDetector _eraser(ChangePages c) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        p.changeEraseMode();
+        c.changeEraseMode();
       },
       child: Icon(Icons.rectangle_outlined,
-          color: p.eraseMode ? p.color : Colors.white),
+          color: c.eraseMode ? c.color : Colors.white),
     );
   }
 
-  GestureDetector _crayon(DrawingProvider p) {
+  GestureDetector _crayon(ChangePages c) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        p.changeCrayonMode();
+        c.changeCrayonMode();
       },
       child: Icon(
         Icons.edit,
-        color: p.crayonMode ? p.color : Colors.white,
+        color: c.crayonMode ? c.color : Colors.white,
         size: 34,
       ),
     );
   }
 
-  GestureDetector _brush(DrawingProvider p) {
+  GestureDetector _brush(ChangePages c) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        p.changeBrushMode();
+        c.changeBrushMode();
       },
       child: Icon(
         Icons.brush_rounded,
-        color: p.brushMode ? p.color : Colors.white,
+        color: c.brushMode ? c.color : Colors.white,
         size: 34,
       ),
     );
   }
 
   Widget _colorWidget(Color color, BuildContext context) {
-    var p = Provider.of<DrawingProvider>(context);
+    var c = Provider.of<ChangePages>(context);
+    int cnt = 0;
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        p.changeColor = color;
+        cnt++;
+        if (cnt == 1) {
+          c.changeColor = color;
+          c.changeBrushMode();
+        } else if (cnt > 1) {}
       },
       child: Container(
         width: 25,
         height: 25,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: p.color == color
+            border: c.color == color
                 ? Border.all(color: Colors.white, width: 2)
                 : null,
             color: color),

@@ -5,37 +5,50 @@ import 'dart:math';
 import 'package:drawing3/models/DotInfo.dart';
 import 'package:flutter/material.dart';
 
+double _size = 3;
+
+Color _color = Colors.black;
+
+bool _eraseMode = false;
+
+bool _brushMode = true;
+
+bool _crayonMode = false;
+
 class ChangePages extends ChangeNotifier {
-  int _pages = 1;
+  int _pages = 0;
   int get pages => _pages;
+
+  double get size => _size;
+  bool get eraseMode => _eraseMode;
+  Color get color => _color;
+  bool get brushMode => _brushMode;
+  bool get crayonMode => _crayonMode;
+
+  List<DrawingProvider> array = [];
+
+  ChangePages() {
+    array.add(DrawingProvider());
+    array.add(DrawingProvider());
+    array.add(DrawingProvider());
+    array.add(DrawingProvider());
+    array.add(DrawingProvider());
+  }
+
   set changePages(int page) {
     _pages = page;
     notifyListeners();
   }
-}
 
-List<DrawingProvider> array = [];
-
-//drawing lines, color, size, mode
-class DrawingProvider extends ChangeNotifier {
-  final lines = <List<DotInfo>>[];
-
-  double _size = 3;
-  double get size => _size;
   set changeSize(double size) {
     _size = size;
     notifyListeners();
   }
 
-  Color _color = Colors.black;
-  Color get color => _color;
   set changeColor(Color color) {
     _color = color;
     notifyListeners();
   }
-
-  bool _eraseMode = false;
-  bool get eraseMode => _eraseMode;
 
   void changeEraseMode() {
     _eraseMode = true;
@@ -44,9 +57,6 @@ class DrawingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _brushMode = true;
-  bool get brushMode => _brushMode;
-
   void changeBrushMode() {
     _brushMode = true;
     _eraseMode = false;
@@ -54,36 +64,37 @@ class DrawingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void drawStart(Offset offset) {
-    var oneLine = <DotInfo>[];
-    _brushMode
-        ? oneLine.add(DotInfo(offset, size, color, 'b'))
-        : oneLine.add(DotInfo(offset, size, color.withOpacity(0.6), 'c'));
-    lines.add(oneLine);
-    notifyListeners();
-  }
-
-  // void cDrawStart(Offset offset) {
-  //   var oneLine = <DotInfo2>[];
-  //   oneLine.add(DotInfo2(offset, size, color));
-  //   dots.add(oneLine);
-  //   notifyListeners();
-  // }
-
-  bool _crayonMode = false;
-  bool get crayonMode => _crayonMode;
-
   void changeCrayonMode() {
     _crayonMode = true;
     _eraseMode = false;
     _brushMode = false;
     notifyListeners();
   }
+}
+
+//drawing lines, color, size, mode
+class DrawingProvider extends ChangeNotifier {
+  final lines = <List<DotInfo>>[];
+
+  double get size => _size;
+  bool get eraseMode => _eraseMode;
+  Color get color => _color;
+  bool get brushMode => _brushMode;
+  bool get crayonMode => _crayonMode;
+
+  void drawStart(Offset offset) {
+    var oneLine = <DotInfo>[];
+    _brushMode
+        ? oneLine.add(DotInfo(offset, size, color))
+        : oneLine.add(DotInfo(offset, size, color.withOpacity(0.6)));
+    lines.add(oneLine);
+    notifyListeners();
+  }
 
   void brushDrawing(Offset offset) {
     _brushMode
-        ? lines.last.add(DotInfo(offset, size, color, 'b'))
-        : lines.last.add(DotInfo(offset, size, color, 'c'));
+        ? lines.last.add(DotInfo(offset, size, color))
+        : lines.last.add(DotInfo(offset, size, color));
     //dots.last.add(DotInfo2(offset, size, color));
     notifyListeners();
   }

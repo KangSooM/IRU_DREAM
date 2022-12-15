@@ -13,12 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ChangeNotifierProvider(
-          create: (context) => DrawingProvider(),
-          child: const DrawingPage(),
-          builder: (context, child) {
-            return Text(context.watch().toString());
-          }),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => ChangePages(),
+          ),
+        ],
+        child: const DrawingPage(),
+      ),
     );
   }
 }
