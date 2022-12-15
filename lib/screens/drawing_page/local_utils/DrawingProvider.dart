@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 //drawing lines, color, size, mode
 class DrawingProvider extends ChangeNotifier {
   final lines = <List<DotInfo>>[];
-  final dots = <List<DotInfo2>>[];
 
   double _size = 3;
   double get size => _size;
@@ -44,12 +43,28 @@ class DrawingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int _pages = 1;
+  int get pages => _pages;
+  set changePages(int page) {
+    _pages = page;
+    notifyListeners();
+  }
+
   void drawStart(Offset offset) {
     var oneLine = <DotInfo>[];
-    oneLine.add(DotInfo(offset, size, color));
+    _brushMode
+        ? oneLine.add(DotInfo(offset, size, color, 'b'))
+        : oneLine.add(DotInfo(offset, size, color.withOpacity(0.6), 'c'));
     lines.add(oneLine);
     notifyListeners();
   }
+
+  // void cDrawStart(Offset offset) {
+  //   var oneLine = <DotInfo2>[];
+  //   oneLine.add(DotInfo2(offset, size, color));
+  //   dots.add(oneLine);
+  //   notifyListeners();
+  // }
 
   bool _crayonMode = false;
   bool get crayonMode => _crayonMode;
@@ -62,18 +77,21 @@ class DrawingProvider extends ChangeNotifier {
   }
 
   void brushDrawing(Offset offset) {
-    lines.last.add(DotInfo(offset, size, color));
+    _brushMode
+        ? lines.last.add(DotInfo(offset, size, color, 'b'))
+        : lines.last.add(DotInfo(offset, size, color, 'c'));
+    //dots.last.add(DotInfo2(offset, size, color));
     notifyListeners();
   }
 
-  void crayonDrawing(Offset offset) {
-    Image.asset(
-      'assets/icons/user.png',
-      alignment: Alignment(offset.dx, offset.dy),
-    );
-    //lines.last.add(DotInfo(offset, size, color.withOpacity(0.0)));
-    notifyListeners();
-  }
+  // String _image = 'assets/icons/user/png';
+  // String get image => _image;
+
+  // void crayonDrawing(Offset offset) {
+  //   lines.last.add(DotInfo(offset, size, Colors.black.withOpacity(0.3)));
+  //   dots.last.add(DotInfo2(offset, size, color));
+  //   notifyListeners();
+  // }
 
   void erase(Offset offset) {
     final eraseGap = size;

@@ -15,14 +15,13 @@ class DrawingPage extends StatefulWidget {
   _DrawingPageState createState() => _DrawingPageState();
 }
 
-int _pages = 1;
-
 class _DrawingPageState extends State<DrawingPage> {
   bool selected = false;
 
   @override
   Widget build(BuildContext context) {
     var p = Provider.of<DrawingProvider>(context);
+
     return Scaffold(
       body: Container(
         color: const Color(0xFF0C092C), //#F4F8FE
@@ -44,7 +43,7 @@ class _DrawingPageState extends State<DrawingPage> {
                         color: Colors.transparent,
                         image: DecorationImage(
                             image: AssetImage(
-                              'assets/pages/iru$_pages.png',
+                              'assets/pages/iru${p.pages}.png',
                             ),
                             fit: BoxFit.cover)),
                     margin: const EdgeInsets.only(
@@ -52,9 +51,11 @@ class _DrawingPageState extends State<DrawingPage> {
                     ),
                     child: Stack(children: [
                       Positioned.fill(
-                        child: CustomPaint(
-                          painter: DrawingPainter(p.lines),
-                        ),
+                        child: CustomPaint(painter: DrawingPainter(p.lines)
+                            // p.brushMode
+                            //     ? DrawingPainter(p.lines)
+                            //     : cDrawingPainter(p.dots),
+                            ),
                       ),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
@@ -68,10 +69,8 @@ class _DrawingPageState extends State<DrawingPage> {
                         onPanUpdate: (s) {
                           if (p.eraseMode) {
                             p.erase(s.localPosition);
-                          } else if (p.brushMode) {
-                            p.brushDrawing(s.localPosition);
                           } else {
-                            p.crayonDrawing(s.localPosition);
+                            p.brushDrawing(s.localPosition);
                           }
                         },
                         child: Container(),
@@ -108,22 +107,13 @@ class _DrawingPageState extends State<DrawingPage> {
                   //       ),
                   //       onPressed: () {},
                   //     )),
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      setState(() {
-                        _pages -= 1;
-                        _pages > 0 ? null : _pages = 1;
-                      });
-                    },
-                    child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 30),
-                  ),
+                  _previousPage(p.pages, context),
                   const SizedBox(
                     height: 30,
                     width: 17,
                   ),
                   Text(
-                    '$_pages/5',
+                    '${p.pages}/5',
                     style: const TextStyle(
                       fontFamily: 'Pretendard',
                       fontSize: 25,
@@ -134,22 +124,43 @@ class _DrawingPageState extends State<DrawingPage> {
                     height: 30,
                     width: 17,
                   ),
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () {
-                      setState(() {
-                        _pages += 1;
-                        _pages < 6 ? null : _pages = 5;
-                      });
-                    },
-                    child: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 30),
-                  ),
+                  _followingPage(p.pages, context),
                 ],
               ),
             )
           ],
         ),
       ),
+    );
+  }
+
+  Widget _previousPage(int page, BuildContext context) {
+    var p = Provider.of<DrawingProvider>(context);
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        setState(() {
+          p.changePages = page - 1;
+          p.pages > 0 ? null : p.changePages = 1;
+        });
+      },
+      child: const Icon(Icons.arrow_back_ios_new_rounded,
+          color: Colors.white, size: 30),
+    );
+  }
+
+  Widget _followingPage(int page, BuildContext context) {
+    var p = Provider.of<DrawingProvider>(context);
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        setState(() {
+          p.changePages = page + 1;
+          p.pages < 6 ? null : p.changePages = 5;
+        });
+      },
+      child: const Icon(Icons.arrow_forward_ios_rounded,
+          color: Colors.white, size: 30),
     );
   }
 }
@@ -198,3 +209,48 @@ class DrawingPainter extends CustomPainter {
     return true;
   }
 }
+
+// class cDrawingPainter extends CustomPainter {
+//   cDrawingPainter(this.dots);
+//   final List<List<DotInfo>> dots;
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
+//     canvas.drawRect(
+//         rect,
+//         Paint()
+//           ..style = PaintingStyle.stroke
+//           ..color = const Color(0xFF0C092C));
+//     canvas.clipRect(rect);
+//     canvas.save();
+//     canvas.translate(0.0, 100.0);
+//     canvas.restore();
+
+//     for (var oneLine in dots) {
+//       var color;
+//       var size;
+//       var l = <Offset>[];
+//       var p = Path();
+//       for (var oneDot in oneLine) {
+//         color ??= oneDot.color;
+//         size ??= oneDot.size;
+//         l.add(oneDot.offset);
+//       }
+//       p.addPolygon(l, false);
+//       canvas.drawPath(
+//           p,
+//           Paint()
+//             ..color = color
+//             ..strokeWidth = size
+//             ..strokeCap = StrokeCap.round
+//             ..style = PaintingStyle.stroke);
+//     }
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     // ignore: todo
+//     // TODO: implement shouldRepaint
+//     return true;
+//   }
+// }

@@ -77,7 +77,8 @@ class ToolKit extends StatelessWidget {
       onTap: () {
         p.changeEraseMode();
       },
-      child: Icon(Icons.rectangle_outlined, color: p.eraseMode ? p.color : Colors.white),
+      child: Icon(Icons.rectangle_outlined,
+          color: p.eraseMode ? p.color : Colors.white),
     );
   }
 
@@ -119,7 +120,12 @@ class ToolKit extends StatelessWidget {
       child: Container(
         width: 25,
         height: 25,
-        decoration: BoxDecoration(shape: BoxShape.circle, border: p.color == color ? Border.all(color: Colors.white, width: 2) : null, color: color),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: p.color == color
+                ? Border.all(color: Colors.white, width: 2)
+                : null,
+            color: color),
       ),
     );
   }
