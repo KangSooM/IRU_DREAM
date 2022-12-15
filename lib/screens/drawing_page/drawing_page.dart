@@ -33,7 +33,7 @@ class _DrawingPageState extends State<DrawingPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [ToolKit(), Profile()],
+                children: [ToolKit(), Profile()],
               ), //toolkit and user_profile
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

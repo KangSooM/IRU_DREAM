@@ -4,7 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ToolKit extends StatelessWidget {
-  const ToolKit({Key? key}) : super(key: key);
+  ToolKit({Key? key}) : super(key: key);
+  final List<Color> colorl = [
+    Color.fromARGB(255, 175, 197, 249),
+    Color(0xFF004eff),
+    Color(0xFF000000)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -66,15 +71,9 @@ class ToolKit extends StatelessWidget {
             // _colorWidget(Color(0xFF004eff), context),
             // _colorWidget(Color(0xFFa7beff), context),
             // _colorWidget(Color(0xFF000000), context),
-            _colorWidget(Color.fromARGB(255, 255, 0, 0), context),
-            _colorWidget(Color.fromARGB(255, 254, 145, 66), context),
-            _colorWidget(Color.fromARGB(255, 255, 255, 0), context),
-            _colorWidget(Color.fromARGB(255, 30, 137, 30), context),
-            _colorWidget(const Color(0xFF004eff), context),
-            _colorWidget(Color.fromARGB(255, 153, 61, 227), context),
-            _colorWidget(Color.fromARGB(255, 233, 144, 209), context),
-            _colorWidget(Colors.black, context),
-            _colorWidget(Colors.white, context),
+            _colorWidget(colorl[0], context, 0),
+            _colorWidget(colorl[1], context, 1),
+            _colorWidget(colorl[2], context, 2),
           ],
         ),
       ),
@@ -120,40 +119,40 @@ class ToolKit extends StatelessWidget {
     );
   }
 
-  Widget _colorWidget(Color color, BuildContext context) {
+  Widget _colorWidget(Color color, BuildContext context, int num) {
     var c = Provider.of<ChangePages>(context);
-    Color mycolor = color;
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
         c.changeColor = color;
         c.changeBrushMode();
-        // showDialog(
-        //     context: context,
-        //     builder: (BuildContext context) {
-        //       return AlertDialog(
-        //         title: Text('Pick a color!'),
-        //         content: SingleChildScrollView(
-        //           child: ColorPicker(
-        //             pickerColor: mycolor, //default color
-        //             onColorChanged: (Color color) {
-        //               mycolor = color;
-        //             },
-        //           ),
-        //         ),
-        //       );
-        //     });
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: SingleChildScrollView(
+                  child: ColorPicker(
+                    pickerColor: color, //default color
+                    onColorChanged: (Color color1) {
+                      c.changeColor = color1;
+                      colorl[num] = color1;
+                      color = color1;
+                    },
+                  ),
+                ),
+              );
+            });
       },
       child: Container(
         width: 25,
         height: 25,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: c.color == mycolor
+            border: c.color == color
                 ? Border.all(color: Colors.white, width: 2)
                 : null,
-            color: mycolor),
+            color: color),
       ),
     );
   }
