@@ -5,6 +5,17 @@ import 'dart:math';
 import 'package:drawing3/models/DotInfo.dart';
 import 'package:flutter/material.dart';
 
+class ChangePages extends ChangeNotifier {
+  int _pages = 1;
+  int get pages => _pages;
+  set changePages(int page) {
+    _pages = page;
+    notifyListeners();
+  }
+}
+
+List<DrawingProvider> array = [];
+
 //drawing lines, color, size, mode
 class DrawingProvider extends ChangeNotifier {
   final lines = <List<DotInfo>>[];
@@ -40,13 +51,6 @@ class DrawingProvider extends ChangeNotifier {
     _brushMode = true;
     _eraseMode = false;
     _crayonMode = false;
-    notifyListeners();
-  }
-
-  int _pages = 1;
-  int get pages => _pages;
-  set changePages(int page) {
-    _pages = page;
     notifyListeners();
   }
 

@@ -20,7 +20,8 @@ class _DrawingPageState extends State<DrawingPage> {
 
   @override
   Widget build(BuildContext context) {
-    var p = Provider.of<DrawingProvider>(context);
+    var p = Provider.of<List<DrawingProvider>>(context);
+    var c = Provider.of<ChangePages>(context);
 
     return Scaffold(
       body: Container(
@@ -43,7 +44,7 @@ class _DrawingPageState extends State<DrawingPage> {
                         color: Colors.transparent,
                         image: DecorationImage(
                             image: AssetImage(
-                              'assets/pages/iru${p.pages}.png',
+                              'assets/pages/iru${c.pages}.png',
                             ),
                             fit: BoxFit.cover)),
                     margin: const EdgeInsets.only(
@@ -51,7 +52,8 @@ class _DrawingPageState extends State<DrawingPage> {
                     ),
                     child: Stack(children: [
                       Positioned.fill(
-                        child: CustomPaint(painter: DrawingPainter(p.lines)
+                        child: CustomPaint(
+                            painter: DrawingPainter(p[c.pages].lines)
                             // p.brushMode
                             //     ? DrawingPainter(p.lines)
                             //     : cDrawingPainter(p.dots),
@@ -60,17 +62,17 @@ class _DrawingPageState extends State<DrawingPage> {
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onPanStart: (s) {
-                          if (p.eraseMode) {
-                            p.erase(s.localPosition);
+                          if (p[c.pages].eraseMode) {
+                            p[c.pages].erase(s.localPosition);
                           } else {
-                            p.drawStart(s.localPosition);
+                            p[c.pages].drawStart(s.localPosition);
                           }
                         },
                         onPanUpdate: (s) {
-                          if (p.eraseMode) {
-                            p.erase(s.localPosition);
+                          if (p[c.pages].eraseMode) {
+                            p[c.pages].erase(s.localPosition);
                           } else {
-                            p.brushDrawing(s.localPosition);
+                            p[c.pages].brushDrawing(s.localPosition);
                           }
                         },
                         child: Container(),
@@ -107,13 +109,13 @@ class _DrawingPageState extends State<DrawingPage> {
                   //       ),
                   //       onPressed: () {},
                   //     )),
-                  _previousPage(p.pages, context),
+                  _previousPage(c.pages, context),
                   const SizedBox(
                     height: 30,
                     width: 17,
                   ),
                   Text(
-                    '${p.pages}/5',
+                    '${c.pages}/5',
                     style: const TextStyle(
                       fontFamily: 'Pretendard',
                       fontSize: 25,
@@ -124,7 +126,7 @@ class _DrawingPageState extends State<DrawingPage> {
                     height: 30,
                     width: 17,
                   ),
-                  _followingPage(p.pages, context),
+                  _followingPage(c.pages, context),
                 ],
               ),
             )
@@ -135,13 +137,13 @@ class _DrawingPageState extends State<DrawingPage> {
   }
 
   Widget _previousPage(int page, BuildContext context) {
-    var p = Provider.of<DrawingProvider>(context);
+    var c = Provider.of<ChangePages>(context);
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
         setState(() {
-          p.changePages = page - 1;
-          p.pages > 0 ? null : p.changePages = 1;
+          c.changePages = page - 1;
+          c.pages > 0 ? null : c.changePages = 1;
         });
       },
       child: const Icon(Icons.arrow_back_ios_new_rounded,
@@ -150,13 +152,13 @@ class _DrawingPageState extends State<DrawingPage> {
   }
 
   Widget _followingPage(int page, BuildContext context) {
-    var p = Provider.of<DrawingProvider>(context);
+    var c = Provider.of<ChangePages>(context);
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
         setState(() {
-          p.changePages = page + 1;
-          p.pages < 6 ? null : p.changePages = 5;
+          c.changePages = page + 1;
+          c.pages < 6 ? null : c.changePages = 5;
         });
       },
       child: const Icon(Icons.arrow_forward_ios_rounded,

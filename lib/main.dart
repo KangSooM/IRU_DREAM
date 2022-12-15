@@ -14,9 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: ChangeNotifierProvider(
-        create: (context) => DrawingProvider(),
-        child: const DrawingPage(),
-      ),
+          create: (context) => DrawingProvider(),
+          child: const DrawingPage(),
+          builder: (context, child) {
+            return Text(context.watch().toString());
+          }),
     );
   }
 }
