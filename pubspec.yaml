@@ -30,7 +30,7 @@ dependencies:
   provider:
   flutter:
     sdk: flutter
-  crayola: ^2.1.1
+  flutter_colorpicker: ^1.0.3
   # postgresql2: ^1.0.3
 
 
@@ -75,6 +75,7 @@ flutter:
     - assets/pages/iru4.png
     - assets/pages/iru5.png
     - assets/icons/user.png
+    - assets/icons/eraser.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
