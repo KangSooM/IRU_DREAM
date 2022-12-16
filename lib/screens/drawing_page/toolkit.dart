@@ -16,7 +16,7 @@ class ToolKit extends StatelessWidget {
   Widget build(BuildContext context) {
     var c = Provider.of<ChangePages>(context);
     return Container(
-      width: 647,
+      width: 500,
       //color: Color(0xFF15264a),
       decoration: BoxDecoration(
         color: const Color(0xFF15264a),
