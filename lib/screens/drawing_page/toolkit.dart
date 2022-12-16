@@ -149,10 +149,10 @@ class ToolKit extends StatelessWidget {
         height: 25,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: c.color == color
+            border: c.color == colorl[num]
                 ? Border.all(color: Colors.white, width: 2)
                 : null,
-            color: color),
+            color: colorl[num]),
       ),
     );
   }
