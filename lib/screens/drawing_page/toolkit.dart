@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+final List<Color> colorl = [
+  Color.fromARGB(255, 175, 197, 249),
+  Color(0xFF004eff),
+  Color(0xFF000000)
+];
+
 class ToolKit extends StatelessWidget {
   ToolKit({Key? key}) : super(key: key);
-  final List<Color> colorl = [
-    Color.fromARGB(255, 175, 197, 249),
-    Color(0xFF004eff),
-    Color(0xFF000000)
-  ];
 
   @override
   Widget build(BuildContext context) {
